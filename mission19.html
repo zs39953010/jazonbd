@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>mission19</title>
+	<style>
+		body{
+			margin: 0;
+		}
+		ul,li{
+			list-style: none;
+		}
+		#queue{
+			margin-top: 20px;
+			height: 300px;
+			width: 1000px;
+		}
+		.element{
+			width: 15px;
+			background-color: red;
+			color: red;
+			text-align: center;
+			font-size: 5px;
+			font-family: 微软雅黑;
+			float: left;
+			margin: 0 3px 5px 0;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<form action="">
+		<input type="text" name="textview" id="textview">
+		<input type="button" id="sorting" value="插入排序">
+	</form>
+		<ul id="queue">
+		</ul>
+	<script>
+		var i;
+		var oTextView=document.getElementById('textview');
+		var oSorting=document.getElementById('sorting');
+		var oQueue=document.getElementById('queue');
+		
+		function sorting(value,index){
+			var NewLi = document.createElement('li');
+			var curr=document.getElementsByTagName('li')[index];
+			var h=value*3;
+			var hc=300-h;
+			NewLi.className='element';
+			NewLi.style.height=h+'px';
+			NewLi.style.marginTop=hc+'px';
+			NewLi.innerHTML=value;
+			oQueue.insertBefore(NewLi,curr);
+			NewLi.onclick=function(){
+				this.parentNode.removeChild(NewLi); 
+		}}
+		function insert(value){
+			var NewLi = document.createElement('li');
+			var h=value*3;
+			var hc=300-h;
+			NewLi.className='element';
+			NewLi.style.height=h+'px';
+			NewLi.style.marginTop=hc+'px';
+			NewLi.innerHTML=value;
+			oQueue.appendChild(NewLi);
+			NewLi.onclick=function(){
+				this.parentNode.removeChild(NewLi); 
+			}
+		}
+		oSorting.onclick=function(){
+			var oLi=document.getElementsByTagName('li');
+			var nLi=oLi.length;
+			var num;
+			i=oTextView.value;
+			if(i<10||i>100){	
+				alert('Please input number 10 to 100!');
+			}
+			else{
+				if(nLi>=60){
+					alert(nLi+'The number of elements is overflowing!');
+				}
+				else{
+					if(nLi!=0){
+						for(num=nLi-1;num>=0;num--){
+							if(i>=Number(oLi[num].innerHTML)){
+								sorting(i,num+1);
+								break;
+							}
+						}
+						if(num==-1)	
+							sorting(i,0);
+					}
+					else
+						insert(i);
+				}	
+			}	
+		}
+	</script>
+</body>
+</html>
